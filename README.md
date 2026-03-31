@@ -1,25 +1,23 @@
 # repstruc
 
-`repstruc` is a small Python CLI that keeps `README.md` files in sync with the real folder structure of a repository.
+`repstruc` keeps `README.md` files in sync with the real folder structure of a repository.
 
-If a folder already has a `README.md`, `repstruc` preserves the existing content and updates only the managed repository structure block at the end of the file.
+If a folder already has a `README.md`, `repstruc` preserves existing content and updates only the managed repository structure block.
 
-If a folder does not have a `README.md`, `repstruc` creates one containing only the managed repository structure block.
+If a folder does not have a `README.md`, `repstruc` creates one containing only the managed structure block.
 
 ## Features
 
 - Recursively updates every folder in a repository
 - Preserves existing README content outside the managed block
 - Creates missing `README.md` files automatically
-- Keeps the repository structure block ahead of footer-style sections such as Authors, Notes, Citations, References, License, Credits, and similar end sections
+- Places the repository structure block before footer-style sections such as `Authors`, `Notes`, `Citations`, `References`, `License`, `Credits`, and similar end sections
 - Can install a Git `pre-commit` hook so the structure updates automatically
 - No external dependencies
 
 ## Install
 
 ### Homebrew
-
-After publishing a tagged release and formula, users should be able to install with:
 
 ```bash
 brew install owenarink/tap/repstruc
@@ -30,8 +28,6 @@ brew install owenarink/tap/repstruc
 ```bash
 python3 -m pip install .
 ```
-
-Or install in editable mode while developing:
 
 ```bash
 python3 -m pip install -e .
@@ -53,19 +49,97 @@ To publish it properly:
 ### v0.2.0
 
 - Detects footer-style sections that belong at the end of an existing `README.md`
-- Places `
+- Places `Repository Structure` before those trailing sections instead of after them
+- Preserves the rest of the README content outside the managed block
+- Adds clearer before-and-after examples
+
+Recognized trailing sections include:
+
+- `Authors`
+- `Author`
+- `Notes`
+- `Note`
+- `Citations`
+- `Citation`
+- `References`
+- `Reference`
+- `Bibliography`
+- `Works Cited`
+- `Sources`
+- `Source`
+- `Acknowledgments`
+- `Acknowledgements`
+- `Credits`
+- `Credit`
+- `Contributors`
+- `Contributor`
+- `Contributing`
+- `Contribution`
+- `License`
+- `Licence`
+- `Copyright`
+- `Disclaimer`
+- `Legal`
+- `Support`
+- `Contact`
+- `Contacts`
+- `Security`
+- `Changelog`
+- `Change Log`
+- `History`
+- `Appendix`
+- `Appendices`
+- `FAQ`
+- `Footnotes`
+- `Further Reading`
+- `Resources`
+
+## Examples
+
+Example folder before update:
+
+```text
+my-project/
+├── src/
+│   └── README.md
+├── data.csv
+└── README.md
+```
+
+Root `README.md` before update:
+
+~~~~md
+# My Project
+
+Intro text.
 
 ## Authors
 Jane Doe
 
 ## Citations
 Paper A
-```
+~~~~
+
+Root `README.md` after `repstruc .`:
+
+~~~~md
+# My Project
+
+Intro text.
+
+# Repository Structure
+
+## Authors
+Jane Doe
+
+## Citations
+Paper A
+~~~~
 
 `src/README.md` after `repstruc .`:
 
 ~~~~md
-## Repository Structure
+# Repository Structure
 <!-- repstruc:start -->
 ```text
 src/
@@ -81,7 +155,7 @@ If a folder has no `README.md`, `repstruc` creates one containing only the manag
 `repstruc` manages this block:
 
 ~~~~md
-## Repository Structure
+# Repository Structure
 <!-- repstruc:start -->
 ```text
 my-project/
@@ -90,30 +164,6 @@ my-project/
 ```
 <!-- repstruc:end -->
 ~~~~
-
-## Repository Structure
-<!-- repstruc:start -->
-```text
-repstruc/
-├── Formula/
-│   ├── README.md
-│   └── repstruc.rb
-├── src/
-│   ├── repstruc/
-│   │   ├── __init__.py
-│   │   ├── cli.py
-│   │   ├── core.py
-│   │   └── README.md
-│   └── README.md
-├── tests/
-│   ├── README.md
-│   └── test_core.py
-├── .gitignore
-├── LICENSE
-├── pyproject.toml
-└── README.md
-```
-<!-- repstruc:end -->
 
 ## Repository Structure
 <!-- repstruc:start -->
