@@ -133,31 +133,16 @@ If a folder has no `README.md`, `repstruc` creates one containing only the manag
 
 `repstruc` manages this block:
 
-```md
-
+~~~~md
 ## Repository Structure
 <!-- repstruc:start -->
 ```text
-repstruc/
-├── Formula/
-│   ├── README.md
-│   └── repstruc.rb
+my-project/
 ├── src/
-│   ├── repstruc/
-│   │   ├── __init__.py
-│   │   ├── cli.py
-│   │   ├── core.py
-│   │   └── README.md
-│   └── README.md
-├── tests/
-│   ├── README.md
-│   └── test_core.py
-├── .gitignore
-├── LICENSE
-├── pyproject.toml
 └── README.md
 ```
 <!-- repstruc:end -->
+~~~~
 
 ## Repository Structure
 <!-- repstruc:start -->
