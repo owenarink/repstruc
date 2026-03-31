@@ -53,6 +53,12 @@ To publish it properly:
 - Preserves the rest of the README content outside the managed block
 - Adds clearer before-and-after examples
 
+## TODO
+
+- AI integration: train a model on heading types in GitHub `README.md` files
+- AI integration: train a model to predict whether a heading or block of text belongs to the footer, so it should remain below the repository structure section
+- Use that footer prediction system in the next version to improve structure placement beyond rule-based heading matching
+
 Recognized trailing sections include:
 
 - `Authors`
@@ -140,12 +146,7 @@ Paper A
 
 ~~~~md
 # Repository Structure
-<!-- repstruc:start -->
-```text
-src/
-└── README.md
-```
-<!-- repstruc:end -->
+
 ~~~~
 
 If a folder has no `README.md`, `repstruc` creates one containing only the managed structure block for that folder.
@@ -164,6 +165,30 @@ my-project/
 ```
 <!-- repstruc:end -->
 ~~~~
+
+## Repository Structure
+<!-- repstruc:start -->
+```text
+repstruc/
+├── Formula/
+│   ├── README.md
+│   └── repstruc.rb
+├── src/
+│   ├── repstruc/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── core.py
+│   │   └── README.md
+│   └── README.md
+├── tests/
+│   ├── README.md
+│   └── test_core.py
+├── .gitignore
+├── LICENSE
+├── pyproject.toml
+└── README.md
+```
+<!-- repstruc:end -->
 
 ## Repository Structure
 <!-- repstruc:start -->
