@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 
 
 START_MARKER = "<!-- repstruc:start -->"
@@ -17,6 +18,46 @@ DEFAULT_IGNORED = {
     "__pycache__",
     ".pytest_cache",
     ".mypy_cache",
+}
+TRAILING_SECTION_TITLES = {
+    "author",
+    "authors",
+    "notes",
+    "note",
+    "citations",
+    "citation",
+    "references",
+    "reference",
+    "bibliography",
+    "works cited",
+    "sources",
+    "source",
+    "acknowledgments",
+    "acknowledgements",
+    "credits",
+    "credit",
+    "contributors",
+    "contributor",
+    "contributing",
+    "contribution",
+    "license",
+    "licence",
+    "copyright",
+    "disclaimer",
+    "legal",
+    "support",
+    "contact",
+    "contacts",
+    "security",
+    "changelog",
+    "change log",
+    "history",
+    "appendix",
+    "appendices",
+    "faq",
+    "footnotes",
+    "further reading",
+    "resources",
 }
 
 
@@ -84,21 +125,53 @@ def render_structure_block(root: Path, ignored_names: set[str], max_depth: int) 
     )
 
 
+def normalize_heading_title(title: str) -> str:
+    return re.sub(r"\s+", " ", title.strip().strip("#").strip()).lower()
+
+
+def find_trailing_section_start(content: str) -> int | None:
+    headings = list(re.finditer(r"(?m)^#{1,6}\s+(.+?)\s*$", content))
+    if not headings:
+        return None
+
+    trailing_start: int | None = None
+    for match in reversed(headings):
+        title = normalize_heading_title(match.group(1))
+        if title in TRAILING_SECTION_TITLES:
+            trailing_start = match.start()
+            continue
+        break
+
+    return trailing_start
+
+
+def remove_existing_block(content: str) -> str:
+    if START_MARKER not in content or END_MARKER not in content:
+        return content
+
+    start = content.index(START_MARKER)
+    section_start = content.rfind("## Repository Structure", 0, start)
+    if section_start == -1:
+        section_start = start
+    end = content.index(END_MARKER) + len(END_MARKER)
+    return (content[:section_start].rstrip() + "\n\n" + content[end:].lstrip()).strip()
+
+
 def merge_readme_content(existing: str, block: str) -> tuple[str, bool]:
     normalized_existing = existing.rstrip()
-    block_with_spacing = f"\n\n{block}".rstrip() + "\n"
-
-    if START_MARKER in normalized_existing and END_MARKER in normalized_existing:
-        start = normalized_existing.index(START_MARKER)
-        section_start = normalized_existing.rfind("## Repository Structure", 0, start)
-        if section_start == -1:
-            section_start = start
-        end = normalized_existing.index(END_MARKER) + len(END_MARKER)
-        merged = f"{normalized_existing[:section_start].rstrip()}\n\n{block}".strip() + "\n"
-    elif normalized_existing:
-        merged = normalized_existing + block_with_spacing
-    else:
+    if not normalized_existing:
         merged = block
+        return merged, merged != existing
+
+    base_content = remove_existing_block(normalized_existing)
+    trailing_start = find_trailing_section_start(base_content)
+
+    if trailing_start is None:
+        merged = f"{base_content}\n\n{block}".strip() + "\n"
+    else:
+        leading = base_content[:trailing_start].rstrip()
+        trailing = base_content[trailing_start:].lstrip()
+        merged = f"{leading}\n\n{block}\n{trailing}".strip() + "\n"
 
     return merged, merged != existing
 

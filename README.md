@@ -11,6 +11,7 @@ If a folder does not have a `README.md`, `repstruc` creates one containing only 
 - Recursively updates every folder in a repository
 - Preserves existing README content outside the managed block
 - Creates missing `README.md` files automatically
+- Keeps the repository structure block ahead of footer-style sections such as Authors, Notes, Citations, References, License, Credits, and similar end sections
 - Can install a Git `pre-commit` hook so the structure updates automatically
 - No external dependencies
 
@@ -35,34 +36,6 @@ Or install in editable mode while developing:
 ```bash
 python3 -m pip install -e .
 ```
-
-## Usage
-
-Update all folders in the current repository:
-
-```bash
-repstruc .
-```
-
-Update a specific repository:
-
-```bash
-repstruc /path/to/target-repo
-```
-
-Update a specific folder name from your current location:
-
-```bash
-repstruc folder_name
-```
-
-Install the automatic Git hook:
-
-```bash
-repstruc . --install-hook
-```
-
-Then normal commits will refresh README structure blocks automatically before commit, so one `git push` is enough.
 
 ## Homebrew Formula
 
