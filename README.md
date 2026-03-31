@@ -55,9 +55,9 @@ To publish it properly:
 
 ## TODO
 
-- AI integration: train a model on heading types in GitHub `README.md` files
-- AI integration: train a model to predict whether a heading or block of text belongs to the footer, so it should remain below the repository structure section
-- Use that footer prediction system in the next version to improve structure placement beyond rule-based heading matching
+- [ ] AI integration: train a model on heading types in GitHub `README.md` files
+- [ ] AI integration: train a model to predict whether a heading or block of text belongs to the footer, so it should remain below the repository structure section
+- [ ] Use that footer prediction system in the next version to improve structure placement beyond rule-based heading matching
 
 Recognized trailing sections include:
 
@@ -157,14 +157,32 @@ If a folder has no `README.md`, `repstruc` creates one containing only the manag
 
 ~~~~md
 # Repository Structure
+
+~~~~
+
+## Repository Structure
 <!-- repstruc:start -->
 ```text
-my-project/
+repstruc/
+├── Formula/
+│   ├── README.md
+│   └── repstruc.rb
 ├── src/
+│   ├── repstruc/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── core.py
+│   │   └── README.md
+│   └── README.md
+├── tests/
+│   ├── README.md
+│   └── test_core.py
+├── .gitignore
+├── LICENSE
+├── pyproject.toml
 └── README.md
 ```
 <!-- repstruc:end -->
-~~~~
 
 ## Repository Structure
 <!-- repstruc:start -->
