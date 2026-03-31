@@ -170,14 +170,7 @@ If a folder has no `README.md`, `repstruc` creates one containing only the manag
 `repstruc` manages this block:
 
 ~~~~md
-## Repository Structure
-<!-- repstruc:start -->
-```text
-my-project/
-├── src/
-└── README.md
-```
-<!-- repstruc:end -->
+
 ~~~~
 
 ## Repository Structure
@@ -208,6 +201,90 @@ repstruc/
 <!-- repstruc:start -->
 ```text
 repstruc/
+├── Formula/
+│   ├── README.md
+│   └── repstruc.rb
+├── src/
+│   ├── repstruc/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── core.py
+│   │   └── README.md
+│   └── README.md
+├── tests/
+│   ├── README.md
+│   └── test_core.py
+├── .gitignore
+├── LICENSE
+├── pyproject.toml
+└── README.md
+```
+<!-- repstruc:end -->
+
+## Repository Structure
+<!-- repstruc:start -->
+```text
+repstruc/
+├── ai/
+│   ├── data/
+│   │   ├── external/
+│   │   │   └── .gitkeep
+│   │   ├── interim/
+│   │   │   └── .gitkeep
+│   │   ├── labels/
+│   │   │   └── .gitkeep
+│   │   ├── processed/
+│   │   │   └── .gitkeep
+│   │   ├── raw/
+│   │   │   └── .gitkeep
+│   │   ├── splits/
+│   │   │   └── .gitkeep
+│   │   └── README.md
+│   ├── evaluation/
+│   │   ├── benchmarks/
+│   │   │   └── .gitkeep
+│   │   ├── errors/
+│   │   │   └── .gitkeep
+│   │   ├── reports/
+│   │   │   └── .gitkeep
+│   │   └── README.md
+│   ├── experiments/
+│   │   ├── prompts/
+│   │   │   └── .gitkeep
+│   │   ├── reports/
+│   │   │   └── .gitkeep
+│   │   ├── runs/
+│   │   │   └── .gitkeep
+│   │   └── README.md
+│   ├── models/
+│   │   ├── cards/
+│   │   │   └── .gitkeep
+│   │   ├── checkpoints/
+│   │   │   └── .gitkeep
+│   │   ├── configs/
+│   │   │   └── .gitkeep
+│   │   ├── exports/
+│   │   │   └── .gitkeep
+│   │   └── README.md
+│   ├── resources/
+│   │   ├── annotation-guides/
+│   │   │   └── .gitkeep
+│   │   ├── collection-criteria/
+│   │   │   └── .gitkeep
+│   │   ├── papers/
+│   │   │   └── .gitkeep
+│   │   ├── taxonomy/
+│   │   │   └── .gitkeep
+│   │   └── README.md
+│   ├── training/
+│   │   ├── plans/
+│   │   │   └── .gitkeep
+│   │   ├── runs/
+│   │   │   └── .gitkeep
+│   │   ├── sweeps/
+│   │   │   └── .gitkeep
+│   │   └── README.md
+│   └── README.md
 ├── Formula/
 │   ├── README.md
 │   └── repstruc.rb
