@@ -48,11 +48,116 @@ To publish it properly:
 3. Replace the release URL and `sha256` with the archive and checksum for your tagged GitHub release.
 4. Users can then run `brew install owenarink/tap/repstruc`.
 
+## Release Notes
+
+### v0.2.0
+
+- Detects footer-style sections that belong at the end of an existing `README.md`
+- Places `## Repository Structure` before those trailing sections instead of after them
+- Preserves the rest of the README content outside the managed block
+
+Recognized trailing sections now include:
+
+- `Authors`
+- `Author`
+- `Notes`
+- `Note`
+- `Citations`
+- `Citation`
+- `References`
+- `Reference`
+- `Bibliography`
+- `Works Cited`
+- `Sources`
+- `Source`
+- `Acknowledgments`
+- `Acknowledgements`
+- `Credits`
+- `Credit`
+- `Contributors`
+- `Contributor`
+- `Contributing`
+- `Contribution`
+- `License`
+- `Licence`
+- `Copyright`
+- `Disclaimer`
+- `Legal`
+- `Support`
+- `Contact`
+- `Contacts`
+- `Security`
+- `Changelog`
+- `Change Log`
+- `History`
+- `Appendix`
+- `Appendices`
+- `FAQ`
+- `Footnotes`
+- `Further Reading`
+- `Resources`
+
+## Examples
+
+Existing README before update:
+
+```md
+# My Project
+
+Intro text.
+
+## Authors
+Jane Doe
+
+## Citations
+Paper A
+```
+
+README after `repstruc .`:
+
+```md
+# My Project
+
+Intro text.
+
+## Authors
+Jane Doe
+
+## Citations
+Paper A
+```
+
+If a folder has no `README.md`, `repstruc` creates one containing only the managed structure block.
+
 ## Managed Block
 
 `repstruc` manages this block:
 
 ```md
+
+## Repository Structure
+<!-- repstruc:start -->
+```text
+repstruc/
+├── Formula/
+│   ├── README.md
+│   └── repstruc.rb
+├── src/
+│   ├── repstruc/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── core.py
+│   │   └── README.md
+│   └── README.md
+├── tests/
+│   ├── README.md
+│   └── test_core.py
+├── .gitignore
+├── LICENSE
+├── pyproject.toml
+└── README.md
+```
+<!-- repstruc:end -->
 
 ## Repository Structure
 <!-- repstruc:start -->
