@@ -99,7 +99,17 @@ Recognized trailing sections now include:
 
 ## Examples
 
-Existing README before update:
+Example folder before update:
+
+```text
+my-project/
+├── src/
+│   └── README.md
+├── data.csv
+└── README.md
+```
+
+Root `README.md` before update:
 
 ```md
 # My Project
@@ -113,7 +123,7 @@ Jane Doe
 Paper A
 ```
 
-README after `repstruc .`:
+Root `README.md` after `repstruc .`:
 
 ```md
 # My Project
@@ -127,7 +137,19 @@ Jane Doe
 Paper A
 ```
 
-If a folder has no `README.md`, `repstruc` creates one containing only the managed structure block.
+`src/README.md` after `repstruc .`:
+
+~~~~md
+## Repository Structure
+<!-- repstruc:start -->
+```text
+src/
+└── README.md
+```
+<!-- repstruc:end -->
+~~~~
+
+If a folder has no `README.md`, `repstruc` creates one containing only the managed structure block for that folder.
 
 ## Managed Block
 
