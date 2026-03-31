@@ -19,8 +19,10 @@ If a folder does not have a `README.md`, `repstruc` creates one containing only 
 
 ### Homebrew
 
+No separate tap repository is required. Install directly from the formula stored in this repository:
+
 ```bash
-brew install owenarink/tap/repstruc
+brew install https://raw.githubusercontent.com/owenarink/repstruc/v0.2.1/Formula/repstruc.rb
 ```
 
 ### pip
@@ -37,14 +39,21 @@ python3 -m pip install -e .
 
 This repository includes a Homebrew formula at `Formula/repstruc.rb`.
 
-To publish it properly:
+To publish a new Homebrew-installable release from this same repository:
 
-1. Create a separate tap repository such as `homebrew-tap`.
-2. Copy `Formula/repstruc.rb` into that tap.
-3. Replace the release URL and `sha256` with the archive and checksum for your tagged GitHub release.
-4. Users can then run `brew install owenarink/tap/repstruc`.
+1. Tag and push the new version.
+2. Compute the release tarball checksum.
+3. Update `Formula/repstruc.rb` with the new release URL and `sha256`.
+4. Users can then install directly from the raw formula URL for that release tag.
 
 ## Release Notes
+
+### v0.2.1
+
+- Removes the requirement for a separate Homebrew tap repository
+- Documents direct Homebrew installation from `Formula/repstruc.rb` in this repository
+- Keeps footer-aware placement of the repository structure block
+- Cleans up the homepage README examples and publishing instructions
 
 ### v0.2.0
 
@@ -126,14 +135,12 @@ Jane Doe
 Paper A
 ~~~~
 
-Root `README.md` after `repstruc .`:
+Root `README.md` after `repstruc update .`:
 
 ~~~~md
 # My Project
 
 Intro text.
-
-# Repository Structure
 
 ## Authors
 Jane Doe
@@ -142,11 +149,16 @@ Jane Doe
 Paper A
 ~~~~
 
-`src/README.md` after `repstruc .`:
+`src/README.md` after `repstruc update .`:
 
 ~~~~md
-# Repository Structure
-
+## Repository Structure
+<!-- repstruc:start -->
+```text
+src/
+└── README.md
+```
+<!-- repstruc:end -->
 ~~~~
 
 If a folder has no `README.md`, `repstruc` creates one containing only the managed structure block for that folder.
@@ -156,57 +168,15 @@ If a folder has no `README.md`, `repstruc` creates one containing only the manag
 `repstruc` manages this block:
 
 ~~~~md
-# Repository Structure
-
+## Repository Structure
+<!-- repstruc:start -->
+```text
+my-project/
+├── src/
+└── README.md
+```
+<!-- repstruc:end -->
 ~~~~
-
-## Repository Structure
-<!-- repstruc:start -->
-```text
-repstruc/
-├── Formula/
-│   ├── README.md
-│   └── repstruc.rb
-├── src/
-│   ├── repstruc/
-│   │   ├── __init__.py
-│   │   ├── cli.py
-│   │   ├── core.py
-│   │   └── README.md
-│   └── README.md
-├── tests/
-│   ├── README.md
-│   └── test_core.py
-├── .gitignore
-├── LICENSE
-├── pyproject.toml
-└── README.md
-```
-<!-- repstruc:end -->
-
-## Repository Structure
-<!-- repstruc:start -->
-```text
-repstruc/
-├── Formula/
-│   ├── README.md
-│   └── repstruc.rb
-├── src/
-│   ├── repstruc/
-│   │   ├── __init__.py
-│   │   ├── cli.py
-│   │   ├── core.py
-│   │   └── README.md
-│   └── README.md
-├── tests/
-│   ├── README.md
-│   └── test_core.py
-├── .gitignore
-├── LICENSE
-├── pyproject.toml
-└── README.md
-```
-<!-- repstruc:end -->
 
 ## Repository Structure
 <!-- repstruc:start -->
