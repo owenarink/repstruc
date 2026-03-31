@@ -16,7 +16,15 @@ If a folder does not have a `README.md`, `repstruc` creates one containing only 
 
 ## Install
 
-From the project root:
+### Homebrew
+
+After publishing a tagged release and formula, users should be able to install with:
+
+```bash
+brew install owenarink/tap/repstruc
+```
+
+### pip
 
 ```bash
 python3 -m pip install .
@@ -33,29 +41,66 @@ python3 -m pip install -e .
 Update all folders in the current repository:
 
 ```bash
-repstruc update .
+repstruc .
 ```
 
-Install the automatic Git hook in another repository:
+Update a specific repository:
 
 ```bash
-cd /path/to/target-repo
-repstruc install-hook .
+repstruc /path/to/target-repo
 ```
 
-Then normal commits will refresh README structure blocks automatically before commit.
+Update a specific folder name from your current location:
+
+```bash
+repstruc folder_name
+```
+
+Install the automatic Git hook:
+
+```bash
+repstruc . --install-hook
+```
+
+Then normal commits will refresh README structure blocks automatically before commit, so one `git push` is enough.
+
+## Homebrew Formula
+
+This repository includes a Homebrew formula at `Formula/repstruc.rb`.
+
+To publish it properly:
+
+1. Create a separate tap repository such as `homebrew-tap`.
+2. Copy `Formula/repstruc.rb` into that tap.
+3. Replace the release URL and `sha256` with the archive and checksum for your tagged GitHub release.
+4. Users can then run `brew install owenarink/tap/repstruc`.
 
 ## Managed Block
 
 `repstruc` manages this block:
 
 ```md
+
 ## Repository Structure
 <!-- repstruc:start -->
 ```text
-...
+repstruc/
+├── Formula/
+│   ├── README.md
+│   └── repstruc.rb
+├── src/
+│   ├── repstruc/
+│   │   ├── __init__.py
+│   │   ├── cli.py
+│   │   ├── core.py
+│   │   └── README.md
+│   └── README.md
+├── tests/
+│   ├── README.md
+│   └── test_core.py
+├── .gitignore
+├── LICENSE
+├── pyproject.toml
+└── README.md
 ```
 <!-- repstruc:end -->
-```
-
-Anything outside that block is preserved.

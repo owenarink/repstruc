@@ -9,22 +9,24 @@ from repstruc.core import DEFAULT_IGNORED, update_repository
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="repstruc")
-    subparsers = parser.add_subparsers(dest="command", required=True)
-
-    update_parser = subparsers.add_parser("update", help="Update README files in a repository.")
-    update_parser.add_argument("path", nargs="?", default=".", help="Target repository path.")
-    update_parser.add_argument("--max-depth", type=int, default=4, help="Maximum tree depth to render.")
-    update_parser.add_argument(
+    parser.add_argument("path", nargs="?", default=".", help="Target repository path.")
+    parser.add_argument("--max-depth", type=int, default=4, help="Maximum tree depth to render.")
+    parser.add_argument(
         "--ignore",
         action="append",
         default=[],
         help="Directory or file name to ignore. Can be provided multiple times.",
     )
-
-    hook_parser = subparsers.add_parser("install-hook", help="Install a pre-commit hook in a repository.")
-    hook_parser.add_argument("path", nargs="?", default=".", help="Target repository path.")
-    hook_parser.add_argument("--hook-command", default="repstruc update .", help="Command executed by the hook.")
-
+    parser.add_argument(
+        "--install-hook",
+        action="store_true",
+        help="Install a pre-commit hook in the target repository.",
+    )
+    parser.add_argument(
+        "--hook-command",
+        default="repstruc .",
+        help="Command executed by the installed hook.",
+    )
     return parser
 
 
@@ -57,6 +59,11 @@ def install_hook(path: Path, command: str) -> None:
 
 
 def run_update(path: Path, max_depth: int, ignores: list[str]) -> None:
+    if not path.exists():
+        raise SystemExit(f"Path does not exist: {path}")
+    if not path.is_dir():
+        raise SystemExit(f"Path is not a directory: {path}")
+
     ignore_set = set(DEFAULT_IGNORED)
     ignore_set.update(ignores)
     result = update_repository(path, ignored_names=ignore_set, max_depth=max_depth)
@@ -71,17 +78,9 @@ def main() -> None:
     args = parser.parse_args()
 
     target = Path(args.path).resolve()
-
-    if args.command == "update":
-        run_update(target, args.max_depth, args.ignore)
-        return
-
-    if args.command == "install-hook":
+    run_update(target, args.max_depth, args.ignore)
+    if args.install_hook:
         install_hook(target, args.hook_command)
-        return
-
-    parser.print_help()
-    raise SystemExit(1)
 
 
 if __name__ == "__main__":
