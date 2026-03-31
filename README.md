@@ -152,7 +152,13 @@ Paper A
 `src/README.md` after `repstruc update .`:
 
 ~~~~md
-
+## Repository Structure
+<!-- repstruc:start -->
+```text
+src/
+└── README.md
+```
+<!-- repstruc:end -->
 ~~~~
 
 If a folder has no `README.md`, `repstruc` creates one containing only the managed structure block for that folder.
@@ -171,30 +177,6 @@ my-project/
 ```
 <!-- repstruc:end -->
 ~~~~
-
-## Repository Structure
-<!-- repstruc:start -->
-```text
-repstruc/
-├── Formula/
-│   ├── README.md
-│   └── repstruc.rb
-├── src/
-│   ├── repstruc/
-│   │   ├── __init__.py
-│   │   ├── cli.py
-│   │   ├── core.py
-│   │   └── README.md
-│   └── README.md
-├── tests/
-│   ├── README.md
-│   └── test_core.py
-├── .gitignore
-├── LICENSE
-├── pyproject.toml
-└── README.md
-```
-<!-- repstruc:end -->
 
 ## Repository Structure
 <!-- repstruc:start -->
