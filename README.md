@@ -19,10 +19,10 @@ If a folder does not have a `README.md`, `repstruc` creates one containing only 
 
 ### Homebrew
 
-No separate tap repository is required. Install directly from the formula stored in this repository:
+Use the public tap repository:
 
 ```bash
-brew install https://raw.githubusercontent.com/owenarink/repstruc/v0.2.1/Formula/repstruc.rb
+brew install owenarink/installs/repstruc
 ```
 
 ### pip
@@ -39,14 +39,22 @@ python3 -m pip install -e .
 
 This repository includes a Homebrew formula at `Formula/repstruc.rb`.
 
-To publish a new Homebrew-installable release from this same repository:
+Recommended release flow:
 
-1. Tag and push the new version.
-2. Compute the release tarball checksum.
-3. Update `Formula/repstruc.rb` with the new release URL and `sha256`.
-4. Users can then install directly from the raw formula URL for that release tag.
+1. Keep the tap repository public.
+2. Name the tap repository `homebrew-installs`.
+3. Copy `Formula/repstruc.rb` from this repository into the tap repository.
+4. Push the updated formula to the tap repo.
+5. Users can then install with `brew install owenarink/installs/repstruc`.
 
 ## Release Notes
+
+### v0.2.2
+
+- Switches the recommended Homebrew install path back to a short public tap install
+- Uses a public tap repository named `homebrew-installs`
+- Restores the short install command `brew install owenarink/installs/repstruc`
+- Updates the README examples and release documentation
 
 ### v0.2.1
 

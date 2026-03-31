@@ -3,8 +3,8 @@ class Repstruc < Formula
 
   desc "Generate and maintain README structure blocks for every folder in a repository"
   homepage "https://github.com/owenarink/repstruc"
-  url "https://github.com/owenarink/repstruc/archive/refs/tags/v0.2.1.tar.gz"
-  sha256 "f289708ced0cf263905593f08837f93f4ea2bff3e64f579015f729e7f47b2ed0"
+  url "https://github.com/owenarink/repstruc/archive/refs/tags/v0.2.2.tar.gz"
+  sha256 "REPLACE_WITH_V0_2_2_SHA256"
   license "MIT"
 
   depends_on "python@3.12"
